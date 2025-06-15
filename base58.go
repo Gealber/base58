@@ -38,7 +38,7 @@ var (
 	}
 )
 
-func Base58Encode32(data [32]byte) string {
+func Encode32(data [32]byte) string {
 	inLeadingZeros := 0
 	for inLeadingZeros = 0; inLeadingZeros < 32; inLeadingZeros++ {
 		if data[inLeadingZeros] != 0 {
@@ -144,7 +144,7 @@ func Base58Encode32(data [32]byte) string {
 	return string(out[:45-skip])
 }
 
-func Base58Encode64(data [64]byte) string {
+func Encode64(data [64]byte) string {
 	inLeadingZeros := 0
 	for inLeadingZeros = 0; inLeadingZeros < 64; inLeadingZeros++ {
 		if data[inLeadingZeros] != 0 {
@@ -269,7 +269,7 @@ func Base58Encode64(data [64]byte) string {
 	return string(out[:90-skip])
 }
 
-func Base58Decode32(encoded string) ([32]byte, error) {
+func Decode32(encoded string) ([32]byte, error) {
 	if len(encoded) > BASE58_ENCODED_32_LEN {
 		return [32]byte{}, errors.New("invalid size for encoded string")
 	}
@@ -361,7 +361,7 @@ func Base58Decode32(encoded string) ([32]byte, error) {
 	return out, nil
 }
 
-func Base58Decode64(encoded string) ([64]byte, error) {
+func Decode64(encoded string) ([64]byte, error) {
 	if len(encoded) > BASE58_ENCODED_64_LEN {
 		return [64]byte{}, errors.New("invalid size for encoded string")
 	}
