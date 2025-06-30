@@ -354,7 +354,7 @@ func Decode32(encoded string) ([32]byte, error) {
 		}
 	}
 
-	if encoded[leadingZeroCnt] == '1' {
+	if leadingZeroCnt < uint64(len(encoded)) && encoded[leadingZeroCnt] == '1' {
 		return [32]byte{}, errors.New("counter for leading 1 failed")
 	}
 

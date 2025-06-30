@@ -20,6 +20,15 @@ func Test_base58Encode32(t *testing.T) {
 	if !reflect.DeepEqual(out, data) {
 		t.Fatalf("got: %+v expected: %+v", out, data)
 	}
+
+	for i := 0; i < 32; i++ {
+		data[i] = 0
+	}
+
+	result := Encode32(data)
+	if result != "11111111111111111111111111111111" {
+		t.Fatalf("result: %s", result)
+	}
 }
 
 func Test_base58Encode64(t *testing.T) {
