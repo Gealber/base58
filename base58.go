@@ -1,4 +1,4 @@
-// NOTE: This code is basically a translation of firedancer/src/ballet/base58 without the support for AVX instrcutions.
+// NOTE: This code is basically a translation of firedancer/src/ballet/base58 without the support for AVX instructions.
 
 package base58
 
@@ -270,7 +270,7 @@ func Encode64(data [64]byte) string {
 }
 
 func Decode32(encoded string) ([32]byte, error) {
-	if len(encoded) > BASE58_ENCODED_32_LEN {
+	if len(encoded) <= 0 || len(encoded) > BASE58_ENCODED_32_LEN {
 		return [32]byte{}, errors.New("invalid size for encoded string")
 	}
 
@@ -349,7 +349,7 @@ func Decode32(encoded string) ([32]byte, error) {
 		if out[leadingZeroCnt] != 0 {
 			break
 		}
-		if encoded[leadingZeroCnt] != '1' {
+		if leadingZeroCnt < uint64(len(encoded)) && encoded[leadingZeroCnt] != '1' {
 			return [32]byte{}, errors.New("counter for leading 1 failed")
 		}
 	}
@@ -362,7 +362,7 @@ func Decode32(encoded string) ([32]byte, error) {
 }
 
 func Decode64(encoded string) ([64]byte, error) {
-	if len(encoded) > BASE58_ENCODED_64_LEN {
+	if len(encoded) <= 0 || len(encoded) > BASE58_ENCODED_64_LEN {
 		return [64]byte{}, errors.New("invalid size for encoded string")
 	}
 
@@ -441,12 +441,12 @@ func Decode64(encoded string) ([64]byte, error) {
 		if out[leadingZeroCnt] != 0 {
 			break
 		}
-		if encoded[leadingZeroCnt] != '1' {
+		if leadingZeroCnt < uint64(len(encoded)) && encoded[leadingZeroCnt] != '1' {
 			return [64]byte{}, errors.New("counter for leading 1 failed")
 		}
 	}
 
-	if encoded[leadingZeroCnt] == '1' {
+	if leadingZeroCnt < uint64(len(encoded)) && encoded[leadingZeroCnt] == '1' {
 		return [64]byte{}, errors.New("counter for leading 1 failed")
 	}
 
